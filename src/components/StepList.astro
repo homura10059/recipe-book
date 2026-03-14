@@ -6,11 +6,23 @@ interface Props {
 }
 
 const { steps } = Astro.props;
+
+function renderStep(step: Step): string {
+  return step
+    .map((item) => {
+      if (item.type === 'text') return item.value;
+      if (item.type === 'ingredient') return item.name;
+      if (item.type === 'timer') return `${item.quantity} ${item.units}`;
+      if (item.type === 'cookware') return item.name;
+      return '';
+    })
+    .join('');
+}
 ---
 <ol class="space-y-4 list-decimal list-outside pl-5">
   {steps.map((step) => (
     <li class="text-stone-700 leading-relaxed">
-      {step.line}
+      {renderStep(step)}
     </li>
   ))}
 </ol>

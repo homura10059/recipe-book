@@ -9,6 +9,7 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
+    "typecheck": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "simple-git-hooks"
@@ -21,12 +22,14 @@
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.7",
     "@biomejs/biome": "^1.9.0",
     "simple-git-hooks": "^2.11.0",
+    "typescript": "^5.9.3",
     "vitest": "^3.0.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npx biome check --write --staged .",
-    "pre-push": "npm run build && npm run test"
+    "pre-push": "npm run typecheck && npm run test"
   }
 }
