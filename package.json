@@ -9,6 +9,8 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "prepare": "simple-git-hooks"
   },
   "dependencies": {
@@ -20,9 +22,11 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.0",
-    "simple-git-hooks": "^2.11.0"
+    "simple-git-hooks": "^2.11.0",
+    "vitest": "^3.0.0"
   },
   "simple-git-hooks": {
-    "pre-commit": "npx biome check --write --staged ."
+    "pre-commit": "npx biome check --write --staged .",
+    "pre-push": "npm run build && npm run test"
   }
 }
