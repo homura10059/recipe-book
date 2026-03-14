@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import RecipeGrid from '../../components/RecipeGrid.astro';
+import { getAllTags, getRecipesByTag } from '../../lib/microcms';
+
+export async function getStaticPaths() {
+  const tags = await getAllTags();
+  return tags.map((tag) => ({
+    params: { slug: tag.slug },
+    props: { tag },
+  }));
+}
+
+const { tag } = Astro.props;
+const recipes = await getRecipesByTag(tag.slug);
+---
+<BaseLayout title={`${tag.name} | recipe book`}>
+  <div class="space-y-8">
+    <h1 class="text-2xl text-stone-800">
+      <span class="text-mustard">{tag.name}</span>
+    </h1>
+    <RecipeGrid recipes={recipes} />
+  </div>
+</BaseLayout>

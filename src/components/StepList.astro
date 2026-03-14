@@ -1,0 +1,16 @@
+---
+import type { Step } from '../lib/cooklang';
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+<ol class="space-y-4 list-decimal list-outside pl-5">
+  {steps.map((step) => (
+    <li class="text-stone-700 leading-relaxed">
+      {step.line}
+    </li>
+  ))}
+</ol>

@@ -1,0 +1,13 @@
+---
+import TagBadge from './TagBadge.astro';
+import type { Tag } from '../lib/microcms';
+
+interface Props {
+  tags: Tag[];
+}
+
+const { tags } = Astro.props;
+---
+<div class="flex flex-wrap gap-2">
+  {tags.map((tag) => <TagBadge name={tag.name} slug={tag.slug} />)}
+</div>

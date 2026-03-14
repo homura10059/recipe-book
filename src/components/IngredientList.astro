@@ -1,0 +1,21 @@
+---
+import type { Ingredient } from '../lib/cooklang';
+
+interface Props {
+  ingredients: Ingredient[];
+}
+
+const { ingredients } = Astro.props;
+---
+<ul class="space-y-1">
+  {ingredients.map((ingredient) => (
+    <li class="flex gap-2 text-stone-700">
+      {ingredient.quantity && ingredient.units
+        ? <span class="text-stone-500">{ingredient.quantity} {ingredient.units}</span>
+        : ingredient.quantity
+        ? <span class="text-stone-500">{ingredient.quantity}</span>
+        : null}
+      <span>{ingredient.name}</span>
+    </li>
+  ))}
+</ul>

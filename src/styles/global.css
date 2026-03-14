@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+@theme {
+  --color-mustard: #D4A017;
+  --color-background: #F8F5F0;
+  --font-family-base: 'Georgia', 'Yu Mincho', 'YuMincho', serif;
+}
