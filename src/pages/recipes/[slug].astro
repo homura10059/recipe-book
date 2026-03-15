@@ -23,8 +23,8 @@ const { ingredients, steps } = parseCooklang(recipe.body);
     <img
       src={recipe.thumbnail?.url ?? 'https://i.imgur.com/AHdiQf2.webp'}
       alt={recipe.title}
-      width={recipe.thumbnail?.width}
-      height={recipe.thumbnail?.height}
+      width={recipe.thumbnail?.width ?? 400}
+      height={recipe.thumbnail?.height ?? 400}
       class="w-full aspect-video object-cover"
     />
 
