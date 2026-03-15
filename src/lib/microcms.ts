@@ -1,5 +1,20 @@
 import { createClient } from 'microcms-js-sdk';
 
+function getEnv(key: string): string {
+  const value = import.meta.env[key];
+  if (!value) {
+    throw new Error(
+      `[microcms] 環境変数 ${key} が設定されていません。.env ファイルを確認してください。\n  参考: .env.example`
+    );
+  }
+  if (value.includes('://')) {
+    throw new Error(
+      `[microcms] ${key} には URL ではなく subdomain のみを設定してください。\n  NG: https://your-service.microcms.io\n  OK: your-service`
+    );
+  }
+  return value;
+}
+
 export type Tag = {
   id: string;
   name: string;
@@ -24,8 +39,8 @@ export type Recipe = {
 };
 
 const client = createClient({
-  serviceDomain: import.meta.env.MICROCMS_SERVICE_DOMAIN,
-  apiKey: import.meta.env.MICROCMS_API_KEY,
+  serviceDomain: getEnv('MICROCMS_SERVICE_DOMAIN'),
+  apiKey: getEnv('MICROCMS_API_KEY'),
 });
 
 export const getAllRecipes = async (): Promise<Recipe[]> => {
