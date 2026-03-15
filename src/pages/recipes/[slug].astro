@@ -1,11 +1,11 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import CategoryBadge from '../../components/CategoryBadge.astro';
 import IngredientList from '../../components/IngredientList.astro';
 import StepList from '../../components/StepList.astro';
 import TagList from '../../components/TagList.astro';
-import CategoryBadge from '../../components/CategoryBadge.astro';
-import { getAllRecipes } from '../../lib/microcms';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { parseCooklang } from '../../lib/cooklang';
+import { getAllRecipes } from '../../lib/microcms';
 
 export async function getStaticPaths() {
   const recipes = await getAllRecipes();
