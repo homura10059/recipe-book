@@ -1,0 +1,55 @@
+---
+import CategoryBadge from '../../components/CategoryBadge.astro';
+import IngredientList from '../../components/IngredientList.astro';
+import StepList from '../../components/StepList.astro';
+import TagList from '../../components/TagList.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { parseCooklang } from '../../lib/cooklang';
+import { getAllRecipes } from '../../lib/microcms';
+
+export async function getStaticPaths() {
+  const recipes = await getAllRecipes();
+  return recipes.map((recipe) => ({
+    params: { slug: recipe.slug },
+    props: { recipe },
+  }));
+}
+
+const { recipe } = Astro.props;
+const { ingredients, steps } = parseCooklang(recipe.body);
+---
+<BaseLayout title={`${recipe.title} | recipe book`}>
+  <article class="max-w-2xl mx-auto space-y-10">
+    <img
+      src={recipe.thumbnail?.url ?? 'https://i.imgur.com/ezjsThN.webp'}
+      alt={recipe.title}
+      width={recipe.thumbnail?.width ?? 700}
+      height={recipe.thumbnail?.height ?? 400}
+      class="w-full aspect-video object-cover"
+    />
+
+    <header class="space-y-4">
+      <h1 class="text-3xl text-stone-800">{recipe.title}</h1>
+      <div class="flex flex-wrap items-center gap-3">
+        {recipe.category && (
+          <CategoryBadge name={recipe.category.name} slug={recipe.category.slug} />
+        )}
+        {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
+      </div>
+    </header>
+
+    {ingredients.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-sm tracking-widest uppercase text-stone-400">Ingredients</h2>
+        <IngredientList ingredients={ingredients} />
+      </section>
+    )}
+
+    {steps.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-sm tracking-widest uppercase text-stone-400">Steps</h2>
+        <StepList steps={steps} />
+      </section>
+    )}
+  </article>
+</BaseLayout>
