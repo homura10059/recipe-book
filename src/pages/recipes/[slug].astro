@@ -20,15 +20,13 @@ const { ingredients, steps } = parseCooklang(recipe.body);
 ---
 <BaseLayout title={`${recipe.title} | recipe book`}>
   <article class="max-w-2xl mx-auto space-y-10">
-    {recipe.thumbnail && (
-      <img
-        src={recipe.thumbnail.url}
-        alt={recipe.title}
-        width={recipe.thumbnail.width}
-        height={recipe.thumbnail.height}
-        class="w-full aspect-video object-cover"
-      />
-    )}
+    <img
+      src={recipe.thumbnail?.url ?? 'https://i.imgur.com/AHdiQf2.webp'}
+      alt={recipe.title}
+      width={recipe.thumbnail?.width}
+      height={recipe.thumbnail?.height}
+      class="w-full aspect-video object-cover"
+    />
 
     <header class="space-y-4">
       <h1 class="text-3xl text-stone-800">{recipe.title}</h1>
