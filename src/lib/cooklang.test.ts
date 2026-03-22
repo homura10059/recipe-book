@@ -29,4 +29,21 @@ describe('parseCooklang', () => {
     const { steps } = parseCooklang('Boil water.\nAdd pasta.');
     expect(steps).toHaveLength(2);
   });
+
+  it('title メタデータが手順に含まれない', () => {
+    const { steps } = parseCooklang('>> title: My Recipe\nBoil water.');
+    expect(steps).toHaveLength(1);
+  });
+
+  it('servings メタデータが手順に含まれない', () => {
+    const { steps } = parseCooklang('>> servings: 4\nBoil water.');
+    expect(steps).toHaveLength(1);
+  });
+
+  it('title と servings の両メタデータが混在しても手順に含まれない', () => {
+    const { steps } = parseCooklang(
+      '>> title: Pasta\n>> servings: 4\nBoil water.\nAdd @salt{1%tsp}.'
+    );
+    expect(steps).toHaveLength(2);
+  });
 });
