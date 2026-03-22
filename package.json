@@ -13,7 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "prepare": "simple-git-hooks",
-    "deploy": "astro build && wrangler pages deploy dist/"
+    "deploy": "wrangler pages deploy dist/"
   },
   "dependencies": {
     "@cooklang/cooklang-ts": "^1.1.0",
