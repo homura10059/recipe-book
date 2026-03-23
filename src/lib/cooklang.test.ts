@@ -76,4 +76,11 @@ describe('parseCooklang', () => {
     expect(ingredients).toHaveLength(1);
     expect(ingredients[0].name).toBe('塩');
   });
+
+  it('フロントマターを手順に含めない', () => {
+    const body = '---\ntitle: テストレシピ\n---\nBoil water.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(1);
+    expect(steps[0]).toEqual([{ type: 'text', value: 'Boil water.' }]);
+  });
 });

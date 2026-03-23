@@ -85,7 +85,14 @@ export const parseCooklang = (
   const metadata: Metadata = {};
   const steps: Step[] = [];
 
-  for (const line of body.split('\n')) {
+  const lines = body.split('\n');
+  let start = 0;
+  if (lines[0]?.trim() === '---') {
+    const end = lines.indexOf('---', 1);
+    if (end !== -1) start = end + 1;
+  }
+
+  for (const line of lines.slice(start)) {
     const t = line.trim();
     if (!t || t.startsWith('--')) continue;
     if (t.startsWith('>>')) {
