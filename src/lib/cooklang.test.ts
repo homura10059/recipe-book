@@ -64,4 +64,16 @@ describe('parseCooklang', () => {
     const { metadata } = parseCooklang('Boil water.');
     expect(metadata).toEqual({});
   });
+
+  it('日本語の食材名をパースする', () => {
+    const { ingredients } = parseCooklang('@玉ねぎ{2%個} を炒める。');
+    expect(ingredients).toHaveLength(1);
+    expect(ingredients[0]).toEqual({ name: '玉ねぎ', quantity: 2, units: '個' });
+  });
+
+  it('日本語の単語食材名をパースする（ブレースなし）', () => {
+    const { ingredients } = parseCooklang('@塩 を加える。');
+    expect(ingredients).toHaveLength(1);
+    expect(ingredients[0].name).toBe('塩');
+  });
 });

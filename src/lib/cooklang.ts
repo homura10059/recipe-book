@@ -34,13 +34,13 @@ function parseAmount(raw: string): { quantity?: number | string; units?: string 
 }
 
 // Matches (in order):
-//   @name{amount}  — ingredient with braces
+//   @name{amount}  — ingredient with braces  (name: any chars except @#~{ and newline)
 //   #name{amount}  — cookware with braces
 //   ~name{amount}  — timer with braces (name may be empty)
-//   @word          — ingredient without braces
+//   @word          — ingredient without braces (Unicode letters/digits, stops at punctuation)
 //   #word          — cookware without braces
 const TOKEN_RE =
-  /(@)([\w][\w ]*?)\{([^}]*)\}|(#)([\w][\w ]*?)\{([^}]*)\}|(~)([\w ]*?)\{([^}]*)\}|(@)(\w+)|(#)(\w+)/g;
+  /(@)([^@#~{\n]+?)\{([^}]*)\}|(#)([^@#~{\n]+?)\{([^}]*)\}|(~)([^@#~{\n]*?)\{([^}]*)\}|(@)([\p{L}\p{N}_]+)|(#)([\p{L}\p{N}_]+)/gu;
 
 function parseLine(line: string): Step {
   const items: Step = [];
