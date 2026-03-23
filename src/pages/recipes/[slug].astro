@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { recipe } = Astro.props;
-const { ingredients, steps } = parseCooklang(recipe.body);
+const { ingredients, steps, metadata } = parseCooklang(recipe.body);
 ---
 <BaseLayout title={`${recipe.title} | recipe book`}>
   <article class="max-w-2xl mx-auto space-y-10">
@@ -36,6 +36,16 @@ const { ingredients, steps } = parseCooklang(recipe.body);
         )}
         {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
       </div>
+      {Object.keys(metadata).length > 0 && (
+        <dl class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-stone-500">
+          {Object.entries(metadata).map(([key, value]) => (
+            <div class="flex gap-1">
+              <dt class="capitalize">{key}:</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
     </header>
 
     {ingredients.length > 0 && (

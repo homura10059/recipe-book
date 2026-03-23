@@ -48,4 +48,20 @@ describe('parseCooklang', () => {
     const { steps } = parseCooklang('Simmer for ~{10%minutes}.');
     expect(steps[0]).toContainEqual({ type: 'timer', name: '', quantity: 10, units: 'minutes' });
   });
+
+  it('メタデータをパースする', () => {
+    const { metadata } = parseCooklang('>> servings: 4\n>> source: https://example.com');
+    expect(metadata).toEqual({ servings: '4', source: 'https://example.com' });
+  });
+
+  it('メタデータと手順が共存する', () => {
+    const { metadata, steps } = parseCooklang('>> servings: 2\nBoil water.');
+    expect(metadata).toEqual({ servings: '2' });
+    expect(steps).toHaveLength(1);
+  });
+
+  it('メタデータがない場合は空オブジェクトを返す', () => {
+    const { metadata } = parseCooklang('Boil water.');
+    expect(metadata).toEqual({});
+  });
 });

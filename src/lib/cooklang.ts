@@ -16,6 +16,8 @@ type CookwareItem = { type: 'cookware'; name: string; quantity?: number | string
 
 export type Step = (TextItem | IngredientItem | TimerItem | CookwareItem)[];
 
+export type Metadata = Record<string, string>;
+
 function parseAmount(raw: string): { quantity?: number | string; units?: string } {
   const trimmed = raw.trim();
   if (!trimmed) return {};
@@ -77,14 +79,26 @@ function parseLine(line: string): Step {
   return items;
 }
 
-export const parseCooklang = (body: string): { ingredients: Ingredient[]; steps: Step[] } => {
-  const steps: Step[] = body
-    .split('\n')
-    .filter((line) => {
-      const t = line.trim();
-      return t && !t.startsWith('--') && !t.startsWith('>>');
-    })
-    .map(parseLine);
+export const parseCooklang = (
+  body: string
+): { ingredients: Ingredient[]; steps: Step[]; metadata: Metadata } => {
+  const metadata: Metadata = {};
+  const steps: Step[] = [];
+
+  for (const line of body.split('\n')) {
+    const t = line.trim();
+    if (!t || t.startsWith('--')) continue;
+    if (t.startsWith('>>')) {
+      const rest = t.slice(2);
+      const sep = rest.indexOf(':');
+      if (sep === -1) continue;
+      const key = rest.slice(0, sep).trim();
+      const value = rest.slice(sep + 1).trim();
+      if (key && value) metadata[key] = value;
+      continue;
+    }
+    steps.push(parseLine(t));
+  }
 
   const ingredients: Ingredient[] = steps
     .flat()
@@ -96,5 +110,5 @@ export const parseCooklang = (body: string): { ingredients: Ingredient[]; steps:
       return ingredient;
     });
 
-  return { ingredients, steps };
+  return { ingredients, steps, metadata };
 };
