@@ -29,4 +29,23 @@ describe('parseCooklang', () => {
     const { steps } = parseCooklang('Boil water.\nAdd pasta.');
     expect(steps).toHaveLength(2);
   });
+
+  it('手順のアイテム構造をパースする', () => {
+    const { steps } = parseCooklang('Add @salt{1%tsp} to the pan.');
+    expect(steps[0]).toEqual([
+      { type: 'text', value: 'Add ' },
+      { type: 'ingredient', name: 'salt', quantity: 1, units: 'tsp' },
+      { type: 'text', value: ' to the pan.' },
+    ]);
+  });
+
+  it('クックウェアをパースする', () => {
+    const { steps } = parseCooklang('Heat in #pan.');
+    expect(steps[0]).toContainEqual({ type: 'cookware', name: 'pan' });
+  });
+
+  it('タイマーをパースする', () => {
+    const { steps } = parseCooklang('Simmer for ~{10%minutes}.');
+    expect(steps[0]).toContainEqual({ type: 'timer', name: '', quantity: 10, units: 'minutes' });
+  });
 });
