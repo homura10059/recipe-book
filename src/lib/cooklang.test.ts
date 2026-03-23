@@ -46,4 +46,29 @@ describe('parseCooklang', () => {
     );
     expect(steps).toHaveLength(2);
   });
+
+  it('frontmatter の title が手順に含まれない', () => {
+    const body = '---\ntitle: My Recipe\n---\nBoil water.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(1);
+  });
+
+  it('frontmatter の servings が手順に含まれない', () => {
+    const body = '---\nservings: 4\n---\nBoil water.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(1);
+  });
+
+  it('frontmatter の title・servings が混在しても手順に含まれない', () => {
+    const body = '---\ntitle: Pasta\nservings: 4\n---\nBoil water.\nAdd @salt{1%tsp}.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(2);
+  });
+
+  it('frontmatter があっても食材を正しくパースする', () => {
+    const body = '---\ntitle: My Recipe\n---\nAdd @salt{1%tsp} to the pan.';
+    const { ingredients } = parseCooklang(body);
+    expect(ingredients).toHaveLength(1);
+    expect(ingredients[0].name).toBe('salt');
+  });
 });
