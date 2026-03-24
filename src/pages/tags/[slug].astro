@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { tag } = Astro.props;
-const recipes = await getRecipesByTag(tag.slug);
+const recipes = await getRecipesByTag(tag.id);
 ---
 <BaseLayout title={`${tag.name} | recipe book`}>
   <div class="space-y-8">

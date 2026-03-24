@@ -66,18 +66,18 @@ export const getAllCategories = async (): Promise<Category[]> => {
   return data.contents;
 };
 
-export const getRecipesByTag = async (slug: string): Promise<Recipe[]> => {
+export const getRecipesByTag = async (id: string): Promise<Recipe[]> => {
   const data = await client.getList<Recipe>({
     endpoint: 'recipes',
-    queries: { filters: `tags[contains]${slug}`, limit: 100 },
+    queries: { filters: `tags[contains]${id}`, limit: 100 },
   });
   return data.contents;
 };
 
-export const getRecipesByCategory = async (slug: string): Promise<Recipe[]> => {
+export const getRecipesByCategory = async (id: string): Promise<Recipe[]> => {
   const data = await client.getList<Recipe>({
     endpoint: 'recipes',
-    queries: { filters: `category[equals]${slug}`, limit: 100 },
+    queries: { filters: `category[equals]${id}`, limit: 100 },
   });
   return data.contents;
 };
