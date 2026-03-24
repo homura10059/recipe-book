@@ -87,6 +87,8 @@ export const parseCooklang = (
 
   const lines = body.split('\n');
   let start = 0;
+  // MicroCMS がリッチテキスト保存時に '--' を em ダッシュ（U+2014）へ自動変換するため、
+  // '---' が '—-'（U+2014 + U+002D）として届くケースがある。両方を区切りとして受け付ける。
   const isFrontmatterDelimiter = (line: string) => {
     const t = line.trim();
     return t === '---' || t === '\u2014-';
