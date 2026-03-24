@@ -83,4 +83,11 @@ describe('parseCooklang', () => {
     expect(steps).toHaveLength(1);
     expect(steps[0]).toEqual([{ type: 'text', value: 'Boil water.' }]);
   });
+
+  it('CRLF 改行のフロントマターを手順に含めない', () => {
+    const body = '---\r\ntitle: テストレシピ\r\n---\r\nBoil water.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(1);
+    expect(steps[0]).toEqual([{ type: 'text', value: 'Boil water.' }]);
+  });
 });

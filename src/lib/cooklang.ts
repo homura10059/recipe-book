@@ -88,7 +88,7 @@ export const parseCooklang = (
   const lines = body.split('\n');
   let start = 0;
   if (lines[0]?.trim() === '---') {
-    const end = lines.indexOf('---', 1);
+    const end = lines.findIndex((line, i) => i > 0 && line.trim() === '---');
     if (end !== -1) start = end + 1;
   }
 
