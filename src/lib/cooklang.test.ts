@@ -90,4 +90,11 @@ describe('parseCooklang', () => {
     expect(steps).toHaveLength(1);
     expect(steps[0]).toEqual([{ type: 'text', value: 'Boil water.' }]);
   });
+
+  it('em ダッシュ区切りのフロントマターを手順に含めない', () => {
+    const body = '—-\ntitle: 豚汁\nservings: 32\n—-\nBoil water.';
+    const { steps } = parseCooklang(body);
+    expect(steps).toHaveLength(1);
+    expect(steps[0]).toEqual([{ type: 'text', value: 'Boil water.' }]);
+  });
 });

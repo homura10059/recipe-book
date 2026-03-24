@@ -87,8 +87,12 @@ export const parseCooklang = (
 
   const lines = body.split('\n');
   let start = 0;
-  if (lines[0]?.trim() === '---') {
-    const end = lines.findIndex((line, i) => i > 0 && line.trim() === '---');
+  const isFrontmatterDelimiter = (line: string) => {
+    const t = line.trim();
+    return t === '---' || t === '\u2014-';
+  };
+  if (isFrontmatterDelimiter(lines[0] ?? '')) {
+    const end = lines.findIndex((line, i) => i > 0 && isFrontmatterDelimiter(line));
     if (end !== -1) start = end + 1;
   }
 
