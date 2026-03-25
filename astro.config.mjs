@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 export default defineConfig({
   image: {
-    domains: ['images.microcms-assets.io'],
+    domains: ['images.microcms-assets.io', 'imagedelivery.net'],
   },
   vite: {
     plugins: [tailwindcss()],

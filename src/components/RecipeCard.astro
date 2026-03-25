@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { isMicroCMSImage } from '../lib/image';
+import { isOptimizableImage } from '../lib/image';
 import type { Recipe } from '../lib/microcms';
 import TagList from './TagList.astro';
 
@@ -12,7 +12,7 @@ const { recipe } = Astro.props;
 ---
 <a href={`/recipes/${recipe.slug}`} class="group block border border-stone-200 hover:border-mustard transition-colors">
   {recipe.thumbnail?.url ? (
-    isMicroCMSImage(recipe.thumbnail.url) ? (
+    isOptimizableImage(recipe.thumbnail.url) ? (
       <Image
         src={recipe.thumbnail.url}
         alt={recipe.title}

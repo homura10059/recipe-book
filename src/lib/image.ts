@@ -1,8 +1,11 @@
-export const MICROCMS_IMAGE_DOMAIN = 'images.microcms-assets.io';
+export const OPTIMIZABLE_IMAGE_DOMAINS = [
+  'images.microcms-assets.io',
+  'imagedelivery.net', // Cloudflare Images
+] as const;
 
-export function isMicroCMSImage(url: string): boolean {
+export function isOptimizableImage(url: string): boolean {
   try {
-    return new URL(url).hostname === MICROCMS_IMAGE_DOMAIN;
+    return (OPTIMIZABLE_IMAGE_DOMAINS as readonly string[]).includes(new URL(url).hostname);
   } catch {
     return false;
   }
