@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { isMicroCMSImage } from '../lib/image';
 import type { Recipe } from '../lib/microcms';
 import TagList from './TagList.astro';
 
@@ -11,13 +12,23 @@ const { recipe } = Astro.props;
 ---
 <a href={`/recipes/${recipe.slug}`} class="group block border border-stone-200 hover:border-mustard transition-colors">
   {recipe.thumbnail?.url ? (
-    <Image
-      src={recipe.thumbnail.url}
-      alt={recipe.title}
-      width={recipe.thumbnail.width}
-      height={recipe.thumbnail.height}
-      class="w-full aspect-video object-cover"
-    />
+    isMicroCMSImage(recipe.thumbnail.url) ? (
+      <Image
+        src={recipe.thumbnail.url}
+        alt={recipe.title}
+        width={recipe.thumbnail.width}
+        height={recipe.thumbnail.height}
+        class="w-full aspect-video object-cover"
+      />
+    ) : (
+      <img
+        src={recipe.thumbnail.url}
+        alt={recipe.title}
+        width={recipe.thumbnail.width}
+        height={recipe.thumbnail.height}
+        class="w-full aspect-video object-cover"
+      />
+    )
   ) : (
     <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
       <span class="text-stone-400 text-sm">No image</span>

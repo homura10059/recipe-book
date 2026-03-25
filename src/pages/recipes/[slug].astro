@@ -6,6 +6,7 @@ import StepList from '../../components/StepList.astro';
 import TagList from '../../components/TagList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { parseCooklang } from '../../lib/cooklang';
+import { isMicroCMSImage } from '../../lib/image';
 import { getAllRecipes } from '../../lib/microcms';
 
 export async function getStaticPaths() {
@@ -22,13 +23,23 @@ const { ingredients, steps, metadata } = parseCooklang(recipe.body);
 <BaseLayout title={`${recipe.title} | recipe book`}>
   <article class="max-w-2xl mx-auto space-y-10">
     {recipe.thumbnail?.url ? (
-      <Image
-        src={recipe.thumbnail.url}
-        alt={recipe.title}
-        width={recipe.thumbnail.width}
-        height={recipe.thumbnail.height}
-        class="w-full aspect-video object-cover"
-      />
+      isMicroCMSImage(recipe.thumbnail.url) ? (
+        <Image
+          src={recipe.thumbnail.url}
+          alt={recipe.title}
+          width={recipe.thumbnail.width}
+          height={recipe.thumbnail.height}
+          class="w-full aspect-video object-cover"
+        />
+      ) : (
+        <img
+          src={recipe.thumbnail.url}
+          alt={recipe.title}
+          width={recipe.thumbnail.width}
+          height={recipe.thumbnail.height}
+          class="w-full aspect-video object-cover"
+        />
+      )
     ) : (
       <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
         <span class="text-stone-400 text-sm">No image</span>
