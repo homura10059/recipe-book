@@ -1,28 +1,23 @@
 ---
 import type { Step } from '../lib/cooklang';
+import { isHighlighted, stepItemText } from './stepList';
 
 interface Props {
   steps: Step[];
 }
 
 const { steps } = Astro.props;
-
-function renderStep(step: Step): string {
-  return step
-    .map((item) => {
-      if (item.type === 'text') return item.value;
-      if (item.type === 'ingredient') return item.name;
-      if (item.type === 'timer') return `${item.quantity} ${item.units}`;
-      if (item.type === 'cookware') return item.name;
-      return '';
-    })
-    .join('');
-}
 ---
 <ol class="space-y-4 list-decimal list-outside pl-5">
   {steps.map((step) => (
     <li class="text-stone-700 leading-relaxed">
-      {renderStep(step)}
+      {step.map((item) =>
+        isHighlighted(item.type) ? (
+          <span class="text-mustard font-semibold">{stepItemText(item)}</span>
+        ) : (
+          stepItemText(item)
+        )
+      )}
     </li>
   ))}
 </ol>
