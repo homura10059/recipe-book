@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { isOptimizableImage } from '../lib/image';
 import type { Recipe } from '../lib/microcms';
 import TagList from './TagList.astro';
 
@@ -9,13 +11,29 @@ interface Props {
 const { recipe } = Astro.props;
 ---
 <a href={`/recipes/${recipe.slug}`} class="group block border border-stone-200 hover:border-mustard transition-colors">
-  <img
-    src={recipe.thumbnail?.url ?? 'https://i.imgur.com/ezjsThN.webp'}
-    alt={recipe.title}
-    width={recipe.thumbnail?.width ?? 700}
-    height={recipe.thumbnail?.height ?? 400}
-    class="w-full aspect-video object-cover"
-  />
+  {recipe.thumbnail?.url ? (
+    isOptimizableImage(recipe.thumbnail.url) ? (
+      <Image
+        src={recipe.thumbnail.url}
+        alt={recipe.title}
+        width={recipe.thumbnail.width}
+        height={recipe.thumbnail.height}
+        class="w-full aspect-video object-cover"
+      />
+    ) : (
+      <img
+        src={recipe.thumbnail.url}
+        alt={recipe.title}
+        width={recipe.thumbnail.width}
+        height={recipe.thumbnail.height}
+        class="w-full aspect-video object-cover"
+      />
+    )
+  ) : (
+    <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
+      <span class="text-stone-400 text-sm">No image</span>
+    </div>
+  )}
   <div class="p-5 space-y-3">
     <h2 class="text-lg text-stone-800 group-hover:text-mustard transition-colors">{recipe.title}</h2>
     {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
