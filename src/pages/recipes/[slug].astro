@@ -21,7 +21,7 @@ const { ingredients, steps, metadata } = parseCooklang(recipe.body);
 ---
 <BaseLayout title={`${recipe.title} | recipe book`}>
   <article class="max-w-2xl mx-auto space-y-10">
-    {recipe.thumbnail ? (
+    {recipe.thumbnail?.url ? (
       <Image
         src={recipe.thumbnail.url}
         alt={recipe.title}
