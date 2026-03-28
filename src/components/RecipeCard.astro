@@ -10,7 +10,7 @@ interface Props {
 
 const { recipe } = Astro.props;
 ---
-<div class="border border-stone-200 hover:border-mustard transition-colors">
+<div class="border border-stone-200 hover:border-mustard transition-colors rounded-lg overflow-hidden">
 <a href={`/recipes/${recipe.slug}`} class="group block">
   {recipe.thumbnail?.url ? (
     isOptimizableImage(recipe.thumbnail.url) ? (
