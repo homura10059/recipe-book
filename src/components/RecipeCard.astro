@@ -38,6 +38,7 @@ const { recipe } = Astro.props;
   <div class="p-5 space-y-3">
     <h2 class="text-lg text-stone-800 group-hover:text-mustard transition-colors">{recipe.title}</h2>
     {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
+    <p class="text-xs text-stone-400">更新: {new Date(recipe.updatedAt).toLocaleDateString('ja-JP')}</p>
   </div>
 </a>
 </div>

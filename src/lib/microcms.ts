@@ -36,6 +36,7 @@ export type Recipe = {
   tags: Tag[];
   category: Category;
   publishedAt: string;
+  updatedAt: string;
 };
 
 const client = createClient({
