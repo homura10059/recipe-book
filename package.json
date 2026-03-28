@@ -16,6 +16,8 @@
     "deploy": "wrangler pages deploy dist/"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.0.0",
     "astro": "^5.0.0",
     "microcms-js-sdk": "^3.1.0",
