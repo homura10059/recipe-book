@@ -12,7 +12,10 @@ interface Props {
 
 const { recipe } = Astro.props;
 ---
-<a href={`/recipes/${recipe.slug}`} class="group block rounded-lg overflow-hidden border border-stone-200 shadow-sm hover:shadow-md hover:border-mustard transition-all bg-white">
+<a
+  href={`/recipes/${recipe.slug}`}
+  class="group relative block rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all aspect-[4/3]"
+>
   {recipe.thumbnail?.url ? (
     isOptimizableImage(recipe.thumbnail.url) ? (
       <Image
@@ -20,7 +23,7 @@ const { recipe } = Astro.props;
         alt={recipe.title}
         width={recipe.thumbnail.width}
         height={recipe.thumbnail.height}
-        class="w-full aspect-video object-cover"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     ) : (
       <img
@@ -28,22 +31,25 @@ const { recipe } = Astro.props;
         alt={recipe.title}
         width={recipe.thumbnail.width}
         height={recipe.thumbnail.height}
-        class="w-full aspect-video object-cover"
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
     )
   ) : (
-    <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
+    <div class="absolute inset-0 bg-stone-200 flex items-center justify-center">
       <span class="text-stone-400 text-sm">No image</span>
     </div>
   )}
-  <div class="p-5 space-y-3">
-    <h2 class="text-lg text-stone-800 group-hover:text-mustard transition-colors leading-snug">{recipe.title}</h2>
-    <div class="flex items-center gap-3">
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+  <div class="absolute bottom-0 left-0 right-0 p-4 space-y-2">
+    <div class="flex items-center gap-2">
       <CategoryBadge name={recipe.category.name} slug={recipe.category.slug} />
-      <time datetime={recipe.publishedAt} class="text-xs text-stone-400 font-sans">
+      <time datetime={recipe.publishedAt} class="text-xs text-white/70 font-sans">
         {formatDate(recipe.publishedAt)}
       </time>
     </div>
+    <h2 class="text-base font-semibold text-white leading-snug group-hover:text-mustard transition-colors">
+      {recipe.title}
+    </h2>
     {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
   </div>
 </a>
