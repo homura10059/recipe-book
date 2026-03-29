@@ -47,7 +47,17 @@ const { body, ingredients, steps } = Astro.props;
   </div>
 
   <div role="tabpanel" data-panel="source" hidden class="space-y-4">
-    <pre class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 leading-relaxed">{body}</pre>
+    <div class="relative">
+      <button
+        id="copy-source"
+        type="button"
+        aria-label="コピー"
+        class="absolute top-2 right-2 px-2 py-1 text-xs text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
+      >
+        コピー
+      </button>
+      <pre id="source-body" class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
+    </div>
   </div>
 </div>
 
@@ -78,6 +88,18 @@ const { body, ingredients, steps } = Astro.props;
           }
         });
       });
+    });
+  }
+
+  const copyBtn = document.getElementById('copy-source') as HTMLButtonElement | null;
+  const sourcePre = document.getElementById('source-body');
+  if (copyBtn && sourcePre) {
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(sourcePre.textContent ?? '');
+      copyBtn.textContent = 'コピー済';
+      setTimeout(() => {
+        copyBtn.textContent = 'コピー';
+      }, 2000);
     });
   }
 </script>
