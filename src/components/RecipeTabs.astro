@@ -52,9 +52,17 @@ const { body, ingredients, steps } = Astro.props;
         id="copy-source"
         type="button"
         aria-label="コピー"
-        class="absolute top-2 right-2 px-2 py-1 text-xs text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
+        class="absolute top-2 right-2 p-1.5 text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
       >
-        コピー
+        <!-- clipboard icon -->
+        <svg id="copy-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="9" y="2" width="13" height="13" rx="2" ry="2"></rect>
+          <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+        </svg>
+        <!-- check icon (hidden by default) -->
+        <svg id="check-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" hidden>
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
       </button>
       <pre id="source-body" class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
     </div>
@@ -96,9 +104,13 @@ const { body, ingredients, steps } = Astro.props;
   if (copyBtn && sourcePre) {
     copyBtn.addEventListener('click', async () => {
       await navigator.clipboard.writeText(sourcePre.textContent ?? '');
-      copyBtn.textContent = 'コピー済';
+      const copyIcon = document.getElementById('copy-icon');
+      const checkIcon = document.getElementById('check-icon');
+      copyIcon?.setAttribute('hidden', '');
+      checkIcon?.removeAttribute('hidden');
       setTimeout(() => {
-        copyBtn.textContent = 'コピー';
+        copyIcon?.removeAttribute('hidden');
+        checkIcon?.setAttribute('hidden', '');
       }, 2000);
     });
   }
