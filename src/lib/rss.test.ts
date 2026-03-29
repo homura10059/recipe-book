@@ -10,6 +10,7 @@ const baseRecipe: Recipe = {
   tags: [],
   category: { id: 'cat1', name: '主食', slug: 'main' },
   publishedAt: '2024-01-15T00:00:00.000Z',
+  updatedAt: '2024-01-15T00:00:00.000Z',
 };
 
 describe('recipeToRssItem', () => {
