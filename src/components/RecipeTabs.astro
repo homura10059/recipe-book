@@ -1,0 +1,111 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Ingredient, Step } from '../lib/cooklang';
+import IngredientList from './IngredientList.astro';
+import StepList from './StepList.astro';
+
+interface Props {
+  body: string;
+  ingredients: Ingredient[];
+  steps: Step[];
+}
+
+const { body, ingredients, steps } = Astro.props;
+---
+<div class="space-y-6">
+  <div role="tablist" class="flex gap-0 border-b border-stone-200">
+    <button
+      role="tab"
+      data-tab="rendered"
+      aria-selected="true"
+      class="px-4 py-2 text-sm border-b-2 border-mustard text-mustard -mb-px transition-colors"
+    >
+      レシピ
+    </button>
+    <button
+      role="tab"
+      data-tab="source"
+      aria-selected="false"
+      class="px-4 py-2 text-sm border-b-2 border-transparent text-stone-400 -mb-px transition-colors hover:text-stone-600"
+    >
+      Cooklang
+    </button>
+  </div>
+
+  <div role="tabpanel" data-panel="rendered" class="space-y-10">
+    {ingredients.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-sm tracking-widest uppercase text-stone-400">Ingredients</h2>
+        <IngredientList ingredients={ingredients} />
+      </section>
+    )}
+    {steps.length > 0 && (
+      <section class="space-y-4">
+        <h2 class="text-sm tracking-widest uppercase text-stone-400">Steps</h2>
+        <StepList steps={steps} />
+      </section>
+    )}
+  </div>
+
+  <div role="tabpanel" data-panel="source" hidden class="space-y-4">
+    <div class="relative">
+      <button
+        id="copy-source"
+        type="button"
+        aria-label="コピー"
+        class="absolute top-2 right-2 p-1.5 text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
+      >
+        <span id="copy-icon"><Icon name="lucide:clipboard" size={14} aria-hidden="true" /></span>
+        <span id="check-icon" hidden><Icon name="lucide:check" size={14} aria-hidden="true" /></span>
+      </button>
+      <pre id="source-body" class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tablist = document.querySelector('[role="tablist"]');
+  if (tablist) {
+    const tabs = tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]');
+    const panels = document.querySelectorAll<HTMLElement>('[role="tabpanel"]');
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+
+        tabs.forEach((t) => {
+          const isActive = t.dataset.tab === target;
+          t.setAttribute('aria-selected', String(isActive));
+          t.classList.toggle('border-mustard', isActive);
+          t.classList.toggle('text-mustard', isActive);
+          t.classList.toggle('border-transparent', !isActive);
+          t.classList.toggle('text-stone-400', !isActive);
+        });
+
+        panels.forEach((panel) => {
+          if (panel.dataset.panel === target) {
+            panel.removeAttribute('hidden');
+          } else {
+            panel.setAttribute('hidden', '');
+          }
+        });
+      });
+    });
+  }
+
+  const copyBtn = document.getElementById('copy-source') as HTMLButtonElement | null;
+  const sourcePre = document.getElementById('source-body');
+  if (copyBtn && sourcePre) {
+    copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(sourcePre.textContent ?? '');
+      const copyIcon = document.getElementById('copy-icon');
+      const checkIcon = document.getElementById('check-icon');
+      copyIcon?.setAttribute('hidden', '');
+      checkIcon?.removeAttribute('hidden');
+      setTimeout(() => {
+        copyIcon?.removeAttribute('hidden');
+        checkIcon?.setAttribute('hidden', '');
+      }, 2000);
+    });
+  }
+</script>
