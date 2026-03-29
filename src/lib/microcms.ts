@@ -44,10 +44,32 @@ const client = createClient({
   apiKey: getEnv('MICROCMS_API_KEY'),
 });
 
-export const getAllRecipes = async (): Promise<Recipe[]> => {
-  const data = await client.getList<Recipe>({ endpoint: 'recipes', queries: { limit: 100 } });
-  return data.contents;
-};
+const PAGE_LIMIT = 100;
+
+async function fetchAllContents<T>(
+  endpoint: string,
+  extraQueries?: { filters?: string }
+): Promise<T[]> {
+  const first = await client.getList<T>({
+    endpoint,
+    queries: { ...extraQueries, limit: PAGE_LIMIT, offset: 0 },
+  });
+  const { contents, totalCount } = first;
+  if (totalCount <= PAGE_LIMIT) return contents;
+
+  const pages = Math.ceil(totalCount / PAGE_LIMIT);
+  const rest = await Promise.all(
+    Array.from({ length: pages - 1 }, (_, i) =>
+      client.getList<T>({
+        endpoint,
+        queries: { ...extraQueries, limit: PAGE_LIMIT, offset: (i + 1) * PAGE_LIMIT },
+      })
+    )
+  );
+  return [...contents, ...rest.flatMap((r) => r.contents)];
+}
+
+export const getAllRecipes = (): Promise<Recipe[]> => fetchAllContents<Recipe>('recipes');
 
 export const getRecipe = async (slug: string): Promise<Recipe> => {
   const data = await client.getList<Recipe>({
@@ -57,28 +79,12 @@ export const getRecipe = async (slug: string): Promise<Recipe> => {
   return data.contents[0];
 };
 
-export const getAllTags = async (): Promise<Tag[]> => {
-  const data = await client.getList<Tag>({ endpoint: 'tags', queries: { limit: 100 } });
-  return data.contents;
-};
+export const getAllTags = (): Promise<Tag[]> => fetchAllContents<Tag>('tags');
 
-export const getAllCategories = async (): Promise<Category[]> => {
-  const data = await client.getList<Category>({ endpoint: 'categories', queries: { limit: 100 } });
-  return data.contents;
-};
+export const getAllCategories = (): Promise<Category[]> => fetchAllContents<Category>('categories');
 
-export const getRecipesByTag = async (id: string): Promise<Recipe[]> => {
-  const data = await client.getList<Recipe>({
-    endpoint: 'recipes',
-    queries: { filters: `tags[contains]${id}`, limit: 100 },
-  });
-  return data.contents;
-};
+export const getRecipesByTag = (id: string): Promise<Recipe[]> =>
+  fetchAllContents<Recipe>('recipes', { filters: `tags[contains]${id}` });
 
-export const getRecipesByCategory = async (id: string): Promise<Recipe[]> => {
-  const data = await client.getList<Recipe>({
-    endpoint: 'recipes',
-    queries: { filters: `category[equals]${id}`, limit: 100 },
-  });
-  return data.contents;
-};
+export const getRecipesByCategory = (id: string): Promise<Recipe[]> =>
+  fetchAllContents<Recipe>('recipes', { filters: `category[equals]${id}` });
