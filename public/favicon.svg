@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" stroke="#575757" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Bowl: flat top edge + curved bottom -->
+  <line x1="57" y1="124" x2="143" y2="124"/>
+  <path d="M57,124 Q57,166 100,166 Q143,166 143,124"/>
+
+  <!-- Spoon: oval head + handle -->
+  <ellipse cx="62" cy="42" rx="11" ry="17" transform="rotate(-20,62,42)"/>
+  <line x1="70" y1="57" x2="93" y2="124"/>
+
+  <!-- Whisk: handle + balloon wires -->
+  <line x1="150" y1="22" x2="123" y2="90"/>
+  <path d="M123,90 C107,84 105,106 118,112"/>
+  <path d="M123,90 C139,84 141,106 118,112"/>
+  <path d="M123,90 C112,87 111,105 118,112"/>
+  <path d="M123,90 C131,87 133,106 118,112"/>
+  <line x1="118" y1="112" x2="118" y2="124"/>
+
+  <!-- Herb / parsley (lower left) -->
+  <path d="M60,141 C51,129 41,131 44,119 C47,108 58,115 59,128"/>
+  <path d="M60,141 C53,124 61,111 70,111 C79,111 80,126 72,135"/>
+  <path d="M60,141 C67,127 77,125 81,134 C85,143 76,154 68,150"/>
+
+  <!-- Carrots: two diagonal bodies + leaves -->
+  <path d="M32,160 L68,136"/>
+  <path d="M38,169 L74,145"/>
+  <path d="M26,154 C20,145 25,136 33,141" stroke-width="4"/>
+  <path d="M31,150 C27,139 35,131 41,137" stroke-width="4"/>
+
+  <!-- Tomato: circle + stem + leaf -->
+  <circle cx="155" cy="148" r="13"/>
+  <line x1="155" y1="135" x2="157" y2="127"/>
+  <path d="M151,135 C148,127 156,122 161,127"/>
+</svg>
