@@ -1,4 +1,5 @@
 ---
+import { Icon } from 'astro-icon/components';
 import type { Ingredient, Step } from '../lib/cooklang';
 import IngredientList from './IngredientList.astro';
 import StepList from './StepList.astro';
@@ -54,19 +55,8 @@ const { body, ingredients, steps } = Astro.props;
         aria-label="コピー"
         class="absolute top-2 right-2 p-1.5 text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
       >
-        <!-- clipboard icon -->
-        <span id="copy-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="9" y="2" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-        </span>
-        <!-- check icon (hidden by default) -->
-        <span id="check-icon" hidden>
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <polyline points="20 6 9 17 4 12"></polyline>
-          </svg>
-        </span>
+        <span id="copy-icon"><Icon name="lucide:clipboard" size={14} aria-hidden="true" /></span>
+        <span id="check-icon" hidden><Icon name="lucide:check" size={14} aria-hidden="true" /></span>
       </button>
       <pre id="source-body" class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
     </div>
