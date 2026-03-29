@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
   const siteUrl = context.site.toString().replace(/\/$/, '');
   const recipes = await getAllRecipes();
   return rss({
-    title: 'レシピブック',
+    title: "homura's recipe book",
     description: '新着レシピをお届けします',
     site: context.site,
     items: recipes.map((r) => recipeToRssItem(r, siteUrl)),
