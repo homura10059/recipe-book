@@ -26,25 +26,23 @@ describe('isOptimizableImage', () => {
 describe('getImgurUrl', () => {
   it('imgur の URL にサイズサフィックスを付与した URL を返す', () => {
     expect(getImgurUrl('https://i.imgur.com/ezjsThN.webp', 'l')).toBe(
-      'https://i.imgur.com/ezjsThNl.webp',
+      'https://i.imgur.com/ezjsThNl.webp'
     );
   });
 
   it('jpg 拡張子の imgur URL にもサイズサフィックスを付与できる', () => {
     expect(getImgurUrl('https://i.imgur.com/abc1234.jpg', 'm')).toBe(
-      'https://i.imgur.com/abc1234m.jpg',
+      'https://i.imgur.com/abc1234m.jpg'
     );
   });
 
   it('サイズを指定しない場合はデフォルトサイズ (h) を使用する', () => {
     expect(getImgurUrl('https://i.imgur.com/ezjsThN.webp')).toBe(
-      'https://i.imgur.com/ezjsThNh.webp',
+      'https://i.imgur.com/ezjsThNh.webp'
     );
   });
 
   it('imgur 以外の URL はそのまま返す', () => {
-    expect(getImgurUrl('https://example.com/image.png', 'l')).toBe(
-      'https://example.com/image.png',
-    );
+    expect(getImgurUrl('https://example.com/image.png', 'l')).toBe('https://example.com/image.png');
   });
 });
