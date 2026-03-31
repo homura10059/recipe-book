@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isOptimizableImage } from './image';
+import { getImgurUrl, isOptimizableImage } from './image';
 
 describe('isOptimizableImage', () => {
   it('microCMS の画像ドメインの URL は true を返す', () => {
@@ -20,5 +20,29 @@ describe('isOptimizableImage', () => {
 
   it('他の外部ドメインは false を返す', () => {
     expect(isOptimizableImage('https://example.com/image.png')).toBe(false);
+  });
+});
+
+describe('getImgurUrl', () => {
+  it('imgur の URL にサイズサフィックスを付与した URL を返す', () => {
+    expect(getImgurUrl('https://i.imgur.com/ezjsThN.webp', 'l')).toBe(
+      'https://i.imgur.com/ezjsThNl.webp'
+    );
+  });
+
+  it('jpg 拡張子の imgur URL にもサイズサフィックスを付与できる', () => {
+    expect(getImgurUrl('https://i.imgur.com/abc1234.jpg', 'm')).toBe(
+      'https://i.imgur.com/abc1234m.jpg'
+    );
+  });
+
+  it('サイズを指定しない場合はデフォルトサイズ (h) を使用する', () => {
+    expect(getImgurUrl('https://i.imgur.com/ezjsThN.webp')).toBe(
+      'https://i.imgur.com/ezjsThNh.webp'
+    );
+  });
+
+  it('imgur 以外の URL はそのまま返す', () => {
+    expect(getImgurUrl('https://example.com/image.png', 'l')).toBe('https://example.com/image.png');
   });
 });

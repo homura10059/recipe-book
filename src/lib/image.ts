@@ -10,3 +10,17 @@ export function isOptimizableImage(url: string): boolean {
     return false;
   }
 }
+
+// https://imgur.com/gallery/image-sizes
+export type ImgurSize = 's' | 'b' | 't' | 'm' | 'l' | 'h';
+
+export function getImgurUrl(url: string, size: ImgurSize = 'h'): string {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname !== 'i.imgur.com') return url;
+    parsed.pathname = parsed.pathname.replace(/(\.[^.]+)$/, `${size}$1`);
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}

@@ -5,7 +5,7 @@ import RecipeTabs from '../../components/RecipeTabs.astro';
 import TagList from '../../components/TagList.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { parseCooklang } from '../../lib/cooklang';
-import { isOptimizableImage } from '../../lib/image';
+import { getImgurUrl, isOptimizableImage } from '../../lib/image';
 import { getAllRecipes } from '../../lib/microcms';
 import { getOgImageUrl } from '../../lib/ogp';
 
@@ -33,7 +33,7 @@ const { ingredients, steps, metadata } = parseCooklang(recipe.body);
         />
       ) : (
         <img
-          src={recipe.thumbnail.url}
+          src={getImgurUrl(recipe.thumbnail.url, 'h')}
           alt={recipe.title}
           width={recipe.thumbnail.width}
           height={recipe.thumbnail.height}
