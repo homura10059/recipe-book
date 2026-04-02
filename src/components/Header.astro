@@ -1,8 +1,8 @@
 ---
 ---
-<header class="border-b border-stone-200 px-6 py-5">
+<header class="border-b border-divider px-6 py-5">
   <div class="flex items-center justify-between">
-    <a href="/" class="text-xl tracking-widest lowercase text-stone-800 hover:text-mustard transition-colors">
+    <a href="/" class="text-xl tracking-widest uppercase font-mono text-ink hover:text-accent transition-colors">
       homura's recipe book
     </a>
     <div class="relative" id="menu-container">
@@ -10,7 +10,7 @@
         id="menu-button"
         aria-expanded="false"
         aria-label="メニューを開く"
-        class="text-stone-800 hover:text-mustard transition-colors p-1"
+        class="text-ink hover:text-accent transition-colors p-1"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="3" y1="6" x2="21" y2="6" />
@@ -20,15 +20,15 @@
       </button>
       <nav
         id="menu-nav"
-        class="hidden absolute right-0 top-full mt-2 bg-background border border-stone-200 shadow-sm rounded py-2 min-w-40 z-10"
+        class="hidden absolute right-0 top-full mt-2 bg-surface-raised border border-divider py-2 min-w-40 z-10"
       >
-        <a href="/about" class="block px-5 py-2 text-stone-700 hover:text-mustard hover:bg-stone-100 transition-colors">
+        <a href="/about" class="block px-5 py-2 font-mono text-xs uppercase text-ink-body hover:text-accent hover:bg-surface-elevated transition-colors">
           About
         </a>
-        <a href="/privacy-policy" class="block px-5 py-2 text-stone-700 hover:text-mustard hover:bg-stone-100 transition-colors">
+        <a href="/privacy-policy" class="block px-5 py-2 font-mono text-xs uppercase text-ink-body hover:text-accent hover:bg-surface-elevated transition-colors">
           プライバシーポリシー
         </a>
-        <a href="/disclaimer" class="block px-5 py-2 text-stone-700 hover:text-mustard hover:bg-stone-100 transition-colors">
+        <a href="/disclaimer" class="block px-5 py-2 font-mono text-xs uppercase text-ink-body hover:text-accent hover:bg-surface-elevated transition-colors">
           免責事項
         </a>
       </nav>

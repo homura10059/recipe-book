@@ -41,13 +41,13 @@ const { ingredients, steps, metadata } = parseCooklang(recipe.body);
         />
       )
     ) : (
-      <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
-        <span class="text-stone-400 text-sm">No image</span>
+      <div class="w-full aspect-video bg-surface-elevated flex items-center justify-center">
+        <span class="text-ink-muted text-sm font-mono">No image</span>
       </div>
     )}
 
     <header class="space-y-4">
-      <h1 class="text-3xl text-stone-800">{recipe.title}</h1>
+      <h1 class="text-3xl font-sans text-ink">{recipe.title}</h1>
       <div class="flex flex-wrap items-center gap-3">
         {recipe.category && (
           <CategoryBadge name={recipe.category.name} slug={recipe.category.slug} />
@@ -55,7 +55,7 @@ const { ingredients, steps, metadata } = parseCooklang(recipe.body);
         {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
       </div>
       {Object.keys(metadata).length > 0 && (
-        <dl class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-stone-500">
+        <dl class="flex flex-wrap gap-x-6 gap-y-1 text-xs font-mono text-ink-muted">
           {Object.entries(metadata).map(([key, value]) => (
             <div class="flex gap-1">
               <dt class="capitalize">{key}:</dt>

@@ -13,12 +13,12 @@ interface Props {
 const { body, ingredients, steps } = Astro.props;
 ---
 <div class="space-y-6">
-  <div role="tablist" class="flex gap-0 border-b border-stone-200">
+  <div role="tablist" class="flex gap-0 border-b border-divider">
     <button
       role="tab"
       data-tab="rendered"
       aria-selected="true"
-      class="px-4 py-2 text-sm border-b-2 border-mustard text-mustard -mb-px transition-colors"
+      class="px-4 py-2 text-xs font-mono uppercase border-b-2 border-ink text-ink -mb-px transition-colors"
     >
       レシピ
     </button>
@@ -26,7 +26,7 @@ const { body, ingredients, steps } = Astro.props;
       role="tab"
       data-tab="source"
       aria-selected="false"
-      class="px-4 py-2 text-sm border-b-2 border-transparent text-stone-400 -mb-px transition-colors hover:text-stone-600"
+      class="px-4 py-2 text-xs font-mono uppercase border-b-2 border-transparent text-ink-muted -mb-px transition-colors hover:text-ink-body"
     >
       Cooklang
     </button>
@@ -35,13 +35,13 @@ const { body, ingredients, steps } = Astro.props;
   <div role="tabpanel" data-panel="rendered" class="space-y-10">
     {ingredients.length > 0 && (
       <section class="space-y-4">
-        <h2 class="text-sm tracking-widest uppercase text-stone-400">Ingredients</h2>
+        <h2 class="text-sm tracking-widest uppercase font-mono text-ink-muted">Ingredients</h2>
         <IngredientList ingredients={ingredients} />
       </section>
     )}
     {steps.length > 0 && (
       <section class="space-y-4">
-        <h2 class="text-sm tracking-widest uppercase text-stone-400">Steps</h2>
+        <h2 class="text-sm tracking-widest uppercase font-mono text-ink-muted">Steps</h2>
         <StepList steps={steps} />
       </section>
     )}
@@ -53,12 +53,12 @@ const { body, ingredients, steps } = Astro.props;
         id="copy-source"
         type="button"
         aria-label="コピー"
-        class="absolute top-2 right-2 p-1.5 text-stone-400 border border-stone-200 rounded bg-stone-50 hover:text-stone-600 hover:border-stone-400 transition-colors"
+        class="absolute top-2 right-2 p-1.5 text-ink-muted border border-divider bg-surface-raised hover:text-ink-body hover:border-outline transition-colors"
       >
         <span id="copy-icon"><Icon name="lucide:clipboard" size={14} aria-hidden="true" /></span>
         <span id="check-icon" hidden><Icon name="lucide:check" size={14} aria-hidden="true" /></span>
       </button>
-      <pre id="source-body" class="text-sm text-stone-700 whitespace-pre-wrap break-words font-mono bg-stone-50 border border-stone-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
+      <pre id="source-body" class="text-sm text-ink-body whitespace-pre-wrap break-words font-mono bg-surface-raised border border-divider p-4 pr-16 leading-relaxed">{body}</pre>
     </div>
   </div>
 </div>
@@ -76,10 +76,10 @@ const { body, ingredients, steps } = Astro.props;
         tabs.forEach((t) => {
           const isActive = t.dataset.tab === target;
           t.setAttribute('aria-selected', String(isActive));
-          t.classList.toggle('border-mustard', isActive);
-          t.classList.toggle('text-mustard', isActive);
+          t.classList.toggle('border-ink', isActive);
+          t.classList.toggle('text-ink', isActive);
           t.classList.toggle('border-transparent', !isActive);
-          t.classList.toggle('text-stone-400', !isActive);
+          t.classList.toggle('text-ink-muted', !isActive);
         });
 
         panels.forEach((panel) => {
