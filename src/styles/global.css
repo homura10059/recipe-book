@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @theme {
-  --color-accent: #ff0000;
+  --color-accent: #d4580a;
   --color-background: #ffffff;
   --font-family-base: "Space Mono", "Roboto Mono", monospace;
 }

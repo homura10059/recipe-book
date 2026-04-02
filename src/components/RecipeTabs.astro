@@ -53,12 +53,12 @@ const { body, ingredients, steps } = Astro.props;
         id="copy-source"
         type="button"
         aria-label="コピー"
-        class="absolute top-2 right-2 p-1.5 text-neutral-400 border border-neutral-200 bg-neutral-50 hover:text-neutral-600 hover:border-neutral-400 transition-colors"
+        class="absolute top-2 right-2 p-1.5 text-neutral-400 border border-neutral-200 rounded bg-neutral-50 hover:text-neutral-600 hover:border-neutral-400 transition-colors"
       >
         <span id="copy-icon"><Icon name="lucide:clipboard" size={14} aria-hidden="true" /></span>
         <span id="check-icon" hidden><Icon name="lucide:check" size={14} aria-hidden="true" /></span>
       </button>
-      <pre id="source-body" class="text-sm text-neutral-700 whitespace-pre-wrap break-words font-mono bg-neutral-50 border border-neutral-200 p-4 pr-16 leading-relaxed">{body}</pre>
+      <pre id="source-body" class="text-sm text-neutral-700 whitespace-pre-wrap break-words font-mono bg-neutral-50 border border-neutral-200 rounded p-4 pr-16 leading-relaxed">{body}</pre>
     </div>
   </div>
 </div>
