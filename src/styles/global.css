@@ -1,7 +1,8 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @theme {
-  --color-mustard: #d4a017;
-  --color-background: #f8f5f0;
-  --font-family-base: "Georgia", "Yu Mincho", "YuMincho", serif;
+  --color-accent: #ff0000;
+  --color-background: #ffffff;
+  --font-family-base: "Space Mono", "Roboto Mono", monospace;
 }

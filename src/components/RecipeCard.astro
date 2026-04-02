@@ -10,7 +10,7 @@ interface Props {
 
 const { recipe } = Astro.props;
 ---
-<div class="border border-stone-200 hover:border-mustard transition-colors rounded-lg overflow-hidden">
+<div class="border border-neutral-200 hover:border-accent transition-colors overflow-hidden">
 <a href={`/recipes/${recipe.slug}`} class="group block">
   {recipe.thumbnail?.url ? (
     isOptimizableImage(recipe.thumbnail.url) ? (
@@ -31,15 +31,15 @@ const { recipe } = Astro.props;
       />
     )
   ) : (
-    <div class="w-full aspect-video bg-stone-100 flex items-center justify-center">
-      <span class="text-stone-400 text-sm">No image</span>
+    <div class="w-full aspect-video bg-neutral-100 flex items-center justify-center">
+      <span class="text-neutral-400 text-xs tracking-widest uppercase">No image</span>
     </div>
   )}
   <div class="p-5 space-y-3">
-    <p class="text-xs text-stone-500">{recipe.category.name}</p>
-    <h2 class="text-lg text-stone-800 group-hover:text-mustard transition-colors">{recipe.title}</h2>
+    <p class="text-xs tracking-widest uppercase text-neutral-400">{recipe.category.name}</p>
+    <h2 class="text-base text-neutral-900 group-hover:text-accent transition-colors leading-snug">{recipe.title}</h2>
     {recipe.tags.length > 0 && <TagList tags={recipe.tags} />}
-    <p class="text-xs text-stone-400">更新: {new Date(recipe.updatedAt).toLocaleDateString('ja-JP')}</p>
+    <p class="text-xs text-neutral-400">更新: {new Date(recipe.updatedAt).toLocaleDateString('ja-JP')}</p>
   </div>
 </a>
 </div>

@@ -10,10 +10,10 @@ const { steps } = Astro.props;
 ---
 <ol class="space-y-4 list-decimal list-outside pl-5">
   {steps.map((step) => (
-    <li class="text-stone-700 leading-relaxed">
+    <li class="text-neutral-700 leading-relaxed">
       {step.map((item) =>
         isHighlighted(item.type) ? (
-          <span class="text-mustard font-semibold">{stepItemText(item)}</span>
+          <span class="text-accent font-bold">{stepItemText(item)}</span>
         ) : (
           stepItemText(item)
         )

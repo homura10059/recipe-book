@@ -16,8 +16,8 @@ const recipes = await getRecipesByCategory(category.id);
 ---
 <BaseLayout title={`${category.name} | homura's recipe book`}>
   <div class="space-y-8">
-    <h1 class="text-2xl text-stone-800">
-      <span class="text-mustard">{category.name}</span>
+    <h1 class="text-2xl text-neutral-900 tracking-tight">
+      <span class="text-accent">{category.name}</span>
     </h1>
     <RecipeGrid recipes={recipes} />
   </div>

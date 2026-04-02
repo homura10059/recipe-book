@@ -12,8 +12,8 @@ const { ingredients } = Astro.props;
   {ingredients.map((ingredient) => {
     const qty = formatIngredientQuantity(ingredient.quantity, ingredient.units);
     return (
-      <li class="flex gap-2 text-stone-700">
-        {qty ? <span class="text-stone-500">{qty}</span> : null}
+      <li class="flex gap-2 text-neutral-700">
+        {qty ? <span class="text-neutral-400">{qty}</span> : null}
         <span>{ingredient.name}</span>
       </li>
     );
