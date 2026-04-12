@@ -81,6 +81,7 @@ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 ### 3.5 行間・字間
 
 - **本文の行間 (line-height)**: Tailwind デフォルト `1.5`（`leading-normal`）
+- **日本語散文段落・手順テキストの行間**: `1.625`（`leading-relaxed`）— コンテンツページの `<p>` タグおよび StepList.astro の手順テキストに適用。日本語長文の可読性向上のため
 - **コードブロックの行間**: `1.625`（`leading-relaxed`）
 - **本文の字間 (letter-spacing)**: 基本 `0`
 - **サイトタイトル・セクションラベルの字間**: `0.1em`（`tracking-widest`）。lowercase 表記と組み合わせてエディトリアルな雰囲気を演出
@@ -261,7 +262,7 @@ Surface:           #fafaf9
 
 Font: "Georgia", "Yu Mincho", "YuMincho", serif
 Body Size: 16px
-Line Height: 1.5
+Line Height: 1.5 (body default) / 1.625 (Japanese prose / steps, leading-relaxed)
 Heading Letter Spacing: 0.1em (tracking-widest)
 
 Container Max Width: 1024px (max-w-5xl)
